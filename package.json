@@ -1,0 +1,25 @@
+{
+  "name": "mern_auth",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon index.js",
+    "prod":"node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asdweb22/Mern_Auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asdweb22/Mern_Auth/issues"
+  },
+  "homepage": "https://github.com/asdweb22/Mern_Auth#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
