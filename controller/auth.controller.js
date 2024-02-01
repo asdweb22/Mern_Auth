@@ -7,7 +7,7 @@ export const Signup = async(req,res,next)=>{
         const hashedPass=bcryptjs.hashSync(password,10)
         const newUser=new User({username,email,password:hashedPass})
         await newUser.save()
-        res.status(201).send({sucess:true,message:"New User created successfully",newUser})
+        res.status(201).send({success:true,message:"New User created successfully",newUser})
     
     } catch (error) {
         next(error)
