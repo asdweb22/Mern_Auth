@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
 import axios from "axios"
 
 export default function SignUp() {
+  const navigate=useNavigate()
   const [formData,setFormData]=useState({})
   const [loading,setLoading]=useState(false)
   // const [error,setError]=useState(false)
@@ -19,7 +20,7 @@ export default function SignUp() {
       console.log("After submit form : ",formData)
       console.log("response from server :",res.data)
       setLoading(false)
-      
+      navigate("/sign-in")
     } catch (error) {
       setLoading(false)
       setError(true)
