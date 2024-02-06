@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import {Link,useNavigate} from "react-router-dom"
 import axios from "axios"
+import { signInFailure, signInStart,signInSuccess } from '../redux/user/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 
@@ -8,9 +10,9 @@ import axios from "axios"
 export default function SignIn() {
 
   const navigate=useNavigate()
+  const dispatch=useDispatch()
   const [formData,setFormData]=useState({})
-  const [loading,setLoading]=useState(false)
-  // const [error,setError]=useState(false)
+  const {loading,error}=useSelector((state)=>state.user)
   
   const handleChange =(e) =>{
     setFormData({...formData,[e.target.name]:e.target.value})
@@ -19,16 +21,21 @@ export default function SignIn() {
   const handleSubmit =async(e)=>{
     e.preventDefault()
     try {
-      setLoading(true)
+      dispatch(signInStart())
       const res= await axios.post("/api/auth/signin",formData)
+      console.log(res)
       console.log("After submit form : ",formData)
       console.log("response from server :",res.data)
-      setLoading(false)
+
+      if(res.data.success===false){
+        console.log("Error :",res.data)
+        dispatch(signInFailure(res.data.message))
+        return;
+      }
+      dispatch(signInSuccess(res.data))
       navigate("/")
     } catch (error) {
-      setLoading(false)
-      setError(true)
-
+      dispatch(signInFailure(error))
     }
 
   }
@@ -45,6 +52,7 @@ export default function SignIn() {
         <Link to="/sign-up">
         <span className='text-blue-500'>Sign Up</span>
         </Link>
+        <p className='text-red-700'>{error ? error.message || "something went wrong":""}</p>
       </div>
     </div>
   )
